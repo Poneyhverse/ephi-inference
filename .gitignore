@@ -1,0 +1,6 @@
+.venv/
+
+# Models — ignore subfolders but keep models.md
+models/*/
+models/*
+!models/models.md
