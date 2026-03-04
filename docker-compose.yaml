@@ -1,0 +1,21 @@
+services:
+  ephi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ephi:latest
+    container_name: ephi
+    ports:
+      - "8020:8000"
+    volumes:
+      - ./models:/app/models
+      - ./engine:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    command: "uv run uvicorn main:app --host 0.0.0.0 --port 8000"
